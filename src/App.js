@@ -12,6 +12,7 @@ function App() {
     e.preventDefault();
     if (!name) {
       // display alert
+      showAlert(true, "danger", "please enter value")
     }
     else if (name && isEditing) {
       // deal with edit
@@ -24,9 +25,13 @@ function App() {
     }
   }
 
+  const showAlert = (show = false, type = "", msg = "") => {
+    setAlert({ show, type, msg })
+  }
+
   return (
     <section className="section-center">
-      <form onSubmit={handleSubmit} className="grocery-form"> {alert.show && <Alert />}
+      <form onSubmit={handleSubmit} className="grocery-form"> {alert.show && <Alert {...alert} removeAlert={showAlert} />}
         <h3>grocery bud</h3>
         <div className="form-control">
           <input type="text" className="grocery" placeholder="e.g. eggs" value={name} onChange={(e) => setName(e.target.value)} />
